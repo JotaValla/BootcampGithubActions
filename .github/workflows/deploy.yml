@@ -3,17 +3,31 @@ name: Deploy to server
 on: push
 
 jobs:
-    first_jobs:
-        runs-on: ubuntu-latest
+  first_jobs:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Hola mundo
-              run: echo "Hola mundo" 
+    steps:
+      - name: Working dir
+        run: ls -al
 
-    second_jobs:
-        needs: first_jobs
-        runs-on: ubuntu-latest
+      - name: Action
+        uses: actions/checkout@v4
 
-        steps:
-            - name: Hola mundo 2
-              run: echo "Hola mundo 2"
+      - name: Working dir after action
+        run: ls -al
+
+  failed_job:
+    runs-on: ubuntu-latest
+    if: failure()
+
+    steps:
+      - name: Job fallido
+        run: echo "Este trabajo ha fallado"
+
+  second_jobs:
+    needs: first_jobs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hola mundo 2
+        run: echo "Hola mundo 2"
