@@ -31,3 +31,14 @@ jobs:
     steps:
       - name: Hola mundo 2
         run: echo "Hola mundo 2"
+    
+  working_with_variables:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Working dir
+          id: step_variables
+          run: echo "my_var=Hola mundo" >> $GITHUB_OUTPUT
+        
+        - name: Obtener mensaje
+          run: echo "${{ steps.step_variables.outputs.my_var }}"
